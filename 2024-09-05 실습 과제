@@ -1,0 +1,39 @@
+#include <stdio.h>
+
+int main()
+{
+    int a,b;
+    int sell[100];
+    int product[100];
+    printf("상품의 개수를 입력.");
+    scanf("%d",&a);
+    
+    
+    for(int i=0; i<a;i++){
+    printf("%d번째 상품 입고 수량을 입력.",i+1);
+    scanf("%d",&product[i]);
+    }
+    printf("\n");
+    for(int i=0; i<a;i++){
+    printf("%d번째 상품 판매 수량을 입력.",i+1);
+    scanf("%d",&sell[i]);
+    }
+    
+    for(int i=0; i<a;i++){
+    product[i]=product[i]-sell[i];
+    }
+    printf("\n");
+    printf("재고가 궁금한 상품의 ID입력");
+    scanf("%d",&b);
+    printf("%d번째 상품의 재고 : %d",b,product[b-1]);
+    printf("\n");
+    printf("모든 상품의 재고 수량");
+    printf("\n");
+    
+    for(int i=0; i<a;i++){
+    printf("%d",product[i]);
+    printf("\t");
+    }
+    
+    return 0;
+}
