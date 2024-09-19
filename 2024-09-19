@@ -1,0 +1,92 @@
+#include <stdio.h>
+
+int main(){
+    
+    int x=0,y=0,z=0,j=0,k=0,a=0;
+    int sold[100];
+    int product[100];
+    int inventory[100];
+    
+    printf("상품의 개수를 입력.");
+    scanf("%d",&a);
+    while(x==4){
+    printf("원하는 메뉴를 선택하세요.(1.입고, 2.판매, 3.상품현황, 4.종료)");
+    scanf("%d",&x);
+    switch(x){
+    case 1:
+        printf("입고 수량 입력: 전체상품 입고수량 입력1,개별 상품 입력2를 선택");
+        scanf("%d",&y);
+        if(y==1){
+             for(int i=0; i<a;i++){
+         printf("%d번째 상품 입고 수량을 입력.",i+1);
+         scanf("%d",&product[i]);
+        }
+        if(y==2){
+            printf("상품ID:");
+            scanf("%d",&j);
+            printf("입고수량:");
+            scanf("%d",&product[j+1]);
+        }
+    
+    case 2:
+            printf("판매 수량 입력: 전체상품 판매수량 입력1,개별 상품 입력2를 선택");
+        scanf("%d",&y);
+        if(y==1){
+             for(int i=0; i<a;i++){
+          printf("%d번째 상품 판매 수량을 입력.",i+1);
+          scanf("%d",&sold[i]);
+        }
+        if(y==2){
+            printf("상품ID:");
+            scanf("%d",&j);
+            printf("판매수량:");
+            scanf("%d",&sold[j+1]);
+        }
+    
+    case 3:
+        for(int i=0; i<a;i++){
+     inventory[i]=product[i]-sold[i];
+     }
+     printf("\n");
+     printf("재고 수량:");
+     for(int i=0; i<a;i++){
+     printf("%d",inventory[i]);
+     }
+     int sum1=0;
+     printf("\n");
+     printf("총 판매량:");
+     for(int i=0; i<a;i++){
+     sum1=sum1+sold[i];
+     }
+     float sum2=0;
+     for(int i=0; i<a;i++){
+     sum2=sum2+product[i];
+     }
+     printf("%d(판매율%.2f%)",sum1,(sum1/sum2)*100);
+     printf("\n");
+     int min=sold[0],max=sold[0];
+     int min1;
+     int max1;
+     for(int i=1;i<a;++i){
+        if(sold[i]<min){
+            min=sold[i];
+            min1=i;
+        }
+        if(sold[i]>max){
+            max=sold[i];
+            max1=i;
+        }
+     }
+     printf("가장 많이 판매된 상품: ID%d,판매량%d\n",max1+1,max);
+     printf("가장 적게 판매된 상품: ID%d,판매량%d\n",min1+1,min);
+     for(int i=0;i<a;i++){
+        if(inventory[i]<3){
+        printf("상품ID %d: 재고부족(%d)\n",i+1,inventory[i]);}
+    }
+    
+    }
+    
+    }
+    
+   return 0; 
+    }
