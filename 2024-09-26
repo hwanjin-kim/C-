@@ -1,0 +1,98 @@
+#include <stdio.h>
+
+void 입력수량(int arr[], int a, const char* msg) {
+    for (int i = 0; i < a; i++) {
+        printf("%d번째 %s: ", i + 1, msg);
+        scanf("%d", &arr[i]);
+    }
+}
+
+int main() {
+    int x = 0, a = 0;
+    int sold[100] = {0}, product[100] = {0}, inventory[100] = {0};
+    char productNames[100][50]; // 상품명 배열
+
+    printf("상품의 개수를 입력: ");
+    scanf("%d", &a);
+
+    while (1) {
+        printf("메뉴 선택 (1.입고, 2.판매, 3.상품현황, 4.상품명 입력, 5.종료): ");
+        scanf("%d", &x);
+
+        switch (x) {
+            case 1: {
+                printf("입고 수량 입력 (1.전체, 2.개별): ");
+                int y; 
+                scanf("%d", &y);
+                if (y == 1) {
+                    입력수량(product, a, "입고 수량");
+                } else {
+                    int j; 
+                    printf("상품ID: "); 
+                    scanf("%d", &j);
+                    if (j >= 0 && j < a) {
+                        printf("입고수량: ");
+                        scanf("%d", &product[j-1]);
+                    } else {
+                        printf("유효하지 않은 상품 ID입니다.\n");
+                    }
+                }
+                break;
+            }
+            case 2: {
+                printf("판매 수량 입력 (1.전체, 2.개별): ");
+                int y; 
+                scanf("%d", &y);
+                if (y == 1) {
+                    입력수량(sold, a, "판매 수량");
+                } else {
+                    int j; 
+                    printf("상품ID: "); 
+                    scanf("%d", &j);
+                    if (j >= 0 && j < a) {
+                        printf("판매수량: ");
+                        scanf("%d", &sold[j]);
+                    } else {
+                        printf("유효하지 않은 상품 ID입니다.\n");
+                    }
+                }
+                break;
+            }
+            case 3: {
+                for (int i = 0; i < a; i++) {
+                    inventory[i] = product[i] - sold[i];
+                }
+
+                printf("\n재고 수량: ");
+                for (int i = 0; i < a; i++) {
+                    printf("%d ", inventory[i]);
+                }
+
+                int sum1 = 0, sum2 = 0;
+                for (int i = 0; i < a; i++) {
+                    sum1 += sold[i];
+                    sum2 += product[i];
+                }
+
+                printf("\n총 판매량: %d (판매율 %.2f%%)\n", sum1, (sum2 > 0 ? (float(sum1) / sum2) * 100 : 0));
+                break;
+            }
+            case 4: {
+                for (int i = 0; i < a; i++) {
+                    printf("%d번째 상품명을 입력: ", i + 1);
+                    scanf("%s", productNames[i]); // 상품명 입력
+                }
+                printf("상품명 입력 완료.\n");
+                break;
+            }
+            case 5:
+                printf("프로그램을 종료합니다.\n");
+                return 0;
+
+            default:
+                printf("잘못된 메뉴 선택입니다.\n");
+        }
+    }
+
+    return 0;
+}
